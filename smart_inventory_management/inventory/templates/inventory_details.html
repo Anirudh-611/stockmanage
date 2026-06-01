@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Inventory Details</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            min-height:100vh;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            font-family:Arial, sans-serif;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            color:white;
+
+            padding:40px;
+        }
+
+        .card{
+
+            width:650px;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding:40px;
+
+            border-radius:20px;
+
+            box-shadow:0px 0px 25px rgba(0,0,0,0.4);
+
+            animation:fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        h2{
+
+            text-align:center;
+
+            color:#00bfff;
+
+            margin-bottom:35px;
+
+            font-size:42px;
+        }
+
+        .details{
+
+            display:grid;
+
+            grid-template-columns:1fr 1fr;
+
+            gap:20px;
+        }
+
+        .detail-box{
+
+            background: rgba(255,255,255,0.08);
+
+            padding:20px;
+
+            border-radius:12px;
+
+            transition:0.3s;
+        }
+
+        .detail-box:hover{
+
+            transform:translateY(-5px);
+
+            box-shadow:0px 0px 15px #00bfff;
+        }
+
+        .detail-box h3{
+
+            color:#00bfff;
+
+            margin-bottom:10px;
+
+            font-size:20px;
+        }
+
+        .detail-box p{
+
+            font-size:18px;
+
+            font-weight:bold;
+        }
+
+        .in-stock{
+
+            color:#00ff88;
+        }
+
+        .buttons{
+
+            margin-top:35px;
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:20px;
+        }
+
+        .btn{
+
+            padding:14px 22px;
+
+            border-radius:10px;
+
+            text-decoration:none;
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .update{
+
+            background:#16a34a;
+        }
+
+        .back{
+
+            background:#2563eb;
+        }
+
+        .btn:hover{
+
+            transform:scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h2>Inventory Details</h2>
+
+        <div class="details">
+
+            <div class="detail-box">
+
+                <h3>Product Name</h3>
+
+                <p>{{ inventory.product.name }}</p>
+
+            </div>
+
+            <div class="detail-box">
+
+                <h3>Price</h3>
+
+                <p>₹{{ inventory.product.price }}</p>
+
+            </div>
+
+            <div class="detail-box">
+
+                <h3>Current Stock</h3>
+
+                <p>{{ inventory.stock }} Units</p>
+
+            </div>
+
+            <div class="detail-box">
+
+                <h3>Status</h3>
+
+                <p>
+
+                    {% if inventory.stock == 0 %}
+
+                        <span style="color: red; font-weight: bold;">Out Of Stock</span>
+
+                    {% elif inventory.stock <= inventory.low_stock_threshold %}
+
+                        <span style="color: orange; font-weight: bold;">Low Stock</span>
+
+                    {% else %}
+
+                        <span style="color: #00ff88; font-weight: bold;">In Stock</span>
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+            <div class="detail-box">
+
+                <h3>Category</h3>
+
+                <p>{{ inventory.product.category }}</p>
+
+            </div>
+
+            <div class="detail-box">
+
+                <h3>Supplier</h3>
+
+                <p>{{ inventory.product.supplier }}</p>
+
+            </div>
+
+            <div class="detail-box">
+
+                <h3>Inventory ID</h3>
+
+                <p>INV-{{ inventory.id }}</p>
+
+            </div>
+
+            <div class="detail-box">
+
+                <h3>Last Updated</h3>
+
+                <p>{{ inventory.last_updated|date:"d M Y H:i" }}</p>
+
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <a href="/inventory/update/{{ inventory.id }}/" class="btn update">
+
+                Update Inventory
+
+            </a>
+
+            <a href="/inventory/" class="btn back">
+
+                Back To Inventory
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

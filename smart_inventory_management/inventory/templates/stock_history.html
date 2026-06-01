@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Stock History</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            color:white;
+
+            padding:40px;
+        }
+
+        /* Navbar */
+
+        .navbar{
+
+            width:100%;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            padding:20px 40px;
+
+            border-radius:15px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:40px;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .navbar h1{
+
+            color:#00bfff;
+
+            font-size:35px;
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            color:white;
+
+            background:#00bfff;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+        /* Main Container */
+
+        .container{
+
+            width:95%;
+
+            margin:auto;
+        }
+
+        h2{
+
+            text-align:center;
+
+            margin-bottom:35px;
+
+            font-size:42px;
+
+            color:#00bfff;
+
+            animation:fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* Table */
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            border-radius:15px;
+
+            overflow:hidden;
+
+            animation:fadeIn 2s ease;
+        }
+
+        th{
+
+            background:#00bfff;
+
+            padding:18px;
+
+            font-size:18px;
+        }
+
+        td{
+
+            padding:18px;
+
+            text-align:center;
+
+            border-bottom:1px solid rgba(255,255,255,0.1);
+
+            transition:0.3s;
+        }
+
+        tr:hover{
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* Status Colors */
+
+        .added{
+
+            color:#00ff88;
+
+            font-weight:bold;
+        }
+
+        .updated{
+
+            color:orange;
+
+            font-weight:bold;
+        }
+
+        .removed{
+
+            color:red;
+
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h1>InventoryPro</h1>
+
+        <a href="/inventory/">
+
+            Back Inventory
+
+        </a>
+
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="container">
+
+        <h2>Stock History</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Product</th>
+
+                <th>Action</th>
+
+                <th>Quantity</th>
+
+                <th>Status</th>
+
+                <th>Date</th>
+
+            </tr>
+
+            {% for history in histories %}
+
+            <tr>
+
+                <td>{{ history.id }}</td>
+
+                <td>{{ history.product.name }}</td>
+
+                <td class="{% if history.action == 'Added' %}added{% elif history.action == 'Updated' %}updated{% else %}removed{% endif %}">
+
+                    {{ history.action }}
+
+                </td>
+
+                <td>
+
+                    {% if history.quantity > 0 %}+{% endif %}{{ history.quantity }}
+
+                </td>
+
+                <td>{{ history.status }}</td>
+
+                <td>{{ history.timestamp|date:"d M Y H:i" }}</td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="6" style="text-align: center; font-size: 18px; color: #cbd5e1; padding: 20px;">
+
+                    No stock movements recorded yet.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Sale Details</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            color:white;
+
+            padding:40px;
+        }
+
+        /* Navbar */
+
+        .navbar{
+
+            width:100%;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding:20px 40px;
+
+            border-radius:15px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:40px;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .navbar h1{
+
+            color:#00bfff;
+
+            font-size:35px;
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            background:#00bfff;
+
+            color:white;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+        /* Main Container */
+
+        .container{
+
+            width:90%;
+
+            margin:auto;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            border-radius:20px;
+
+            padding:40px;
+
+            box-shadow:0px 0px 20px rgba(0,0,0,0.4);
+
+            animation:fadeIn 1.2s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        h2{
+
+            text-align:center;
+
+            margin-bottom:35px;
+
+            color:#00bfff;
+
+            font-size:45px;
+        }
+
+        /* Details Grid */
+
+        .details-grid{
+
+            display:grid;
+
+            grid-template-columns:repeat(2,1fr);
+
+            gap:25px;
+
+            margin-bottom:40px;
+        }
+
+        .detail-card{
+
+            background: rgba(255,255,255,0.08);
+
+            padding:25px;
+
+            border-radius:15px;
+
+            transition:0.3s;
+        }
+
+        .detail-card:hover{
+
+            transform:translateY(-5px);
+
+            box-shadow:0px 0px 15px #00bfff;
+        }
+
+        .detail-card h3{
+
+            color:#00bfff;
+
+            margin-bottom:12px;
+
+            font-size:22px;
+        }
+
+        .detail-card p{
+
+            font-size:20px;
+
+            font-weight:bold;
+        }
+
+        /* Status Colors */
+
+        .paid{
+
+            color:#00ff88;
+        }
+
+        .pending{
+
+            color:orange;
+        }
+
+        .cancelled{
+
+            color:red;
+        }
+
+        /* Product Table */
+
+        .table-box{
+
+            background: rgba(255,255,255,0.08);
+
+            padding:25px;
+
+            border-radius:20px;
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+        }
+
+        th{
+
+            background:#00bfff;
+
+            padding:18px;
+
+            font-size:18px;
+        }
+
+        td{
+
+            padding:18px;
+
+            text-align:center;
+
+            border-bottom:1px solid rgba(255,255,255,0.1);
+        }
+
+        tr:hover{
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* Buttons */
+
+        .buttons{
+
+            margin-top:35px;
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:20px;
+        }
+
+        .btn{
+
+            text-decoration:none;
+
+            padding:14px 22px;
+
+            border-radius:10px;
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .update{
+
+            background:#16a34a;
+        }
+
+        .invoice{
+
+            background:#2563eb;
+        }
+
+        .btn:hover{
+
+            transform:scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h1>InventoryPro Sales</h1>
+
+        <a href="/sales/list/">
+
+            Back Sales List
+
+        </a>
+
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="container">
+
+        <h2>Sale Details</h2>
+
+        <!-- Details Grid -->
+
+        <div class="details-grid">
+
+            <div class="detail-card">
+
+                <h3>Order ID</h3>
+
+                <p>#{{ sale.id }}</p>
+
+            </div>
+
+            <div class="detail-card">
+
+                <h3>Customer Name</h3>
+
+                <p>{{ sale.customer_name }}</p>
+
+            </div>
+
+            <div class="detail-card">
+
+                <h3>Payment Status</h3>
+
+                <p class="{% if sale.payment_status|lower == 'paid' %}paid{% elif sale.payment_status|lower == 'pending' %}pending{% else %}cancelled{% endif %}">
+
+                    {{ sale.payment_status }}
+
+                </p>
+
+            </div>
+
+            <div class="detail-card">
+
+                <h3>Order Date</h3>
+
+                <p>{{ sale.order_date|date:"d M Y" }}</p>
+
+            </div>
+
+            <div class="detail-card">
+
+                <h3>Total Amount</h3>
+
+                <p>₹{{ sale.total_price }}</p>
+
+            </div>
+
+            <div class="detail-card">
+
+                <h3>Payment Method</h3>
+
+                <p>{{ sale.payment_method }}</p>
+
+            </div>
+
+        </div>
+
+        <!-- Purchased Products -->
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>Product</th>
+
+                    <th>Quantity</th>
+
+                    <th>Price</th>
+
+                    <th>Total</th>
+
+                </tr>
+
+                <tr>
+
+                    <td>{{ sale.product.name }}</td>
+
+                    <td>{{ sale.quantity }}</td>
+
+                    <td>₹{{ sale.product.price }}</td>
+
+                    <td>₹{{ sale.total_price }}</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+        <!-- Action Buttons -->
+
+        <div class="buttons">
+
+            <a href="/sales/update/{{ sale.id }}/" class="btn update">
+
+                Update Sale
+
+            </a>
+
+            <button onclick="window.print()" class="btn invoice" style="border: none; cursor: pointer; font-size: 16px; font-weight: bold;">
+
+                Print Invoice
+
+            </button>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

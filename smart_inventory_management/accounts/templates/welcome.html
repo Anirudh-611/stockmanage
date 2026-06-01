@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            position: relative;
+            cursor: none;
+        }
+
+        .container{
+
+            text-align: center;
+            color: white;
+            z-index: 2;
+
+            animation: fadeIn 2s ease;
+        }
+
+        h1{
+
+            font-size: 75px;
+            margin-bottom: 20px;
+
+            animation: slideDown 2s ease;
+        }
+
+        p{
+
+            font-size: 28px;
+            margin-bottom: 40px;
+
+            animation: fadeIn 3s ease;
+        }
+
+        .tap-button{
+
+            display: inline-block;
+
+            padding: 18px 40px;
+
+            font-size: 24px;
+
+            border-radius: 50px;
+
+            background: #00bfff;
+
+            color: white;
+
+            text-decoration: none;
+
+            transition: 0.4s;
+
+            animation: pulse 2s infinite;
+        }
+
+        .tap-button:hover{
+
+            transform: scale(1.1);
+
+            background: #009acd;
+
+            box-shadow: 0px 0px 30px #00bfff;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity: 0;
+            }
+
+            to{
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown{
+
+            from{
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            to{
+                transform: translateY(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse{
+
+            0%{
+                transform: scale(1);
+            }
+
+            50%{
+                transform: scale(1.05);
+            }
+
+            100%{
+                transform: scale(1);
+            }
+        }
+
+        /* Floating Particles */
+
+        .circle{
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.1);
+
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float{
+
+            from{
+                transform: translateY(100vh);
+            }
+
+            to{
+                transform: translateY(-120vh);
+            }
+        }
+
+        /* Cursor Animation */
+
+        .cursor{
+
+            width: 20px;
+            height: 20px;
+
+            border: 2px solid cyan;
+
+            border-radius: 50%;
+
+            position: absolute;
+
+            pointer-events: none;
+
+            transform: translate(-50%, -50%);
+
+            transition: transform 0.1s;
+
+            z-index: 999;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Cursor -->
+
+    <div class="cursor"></div>
+
+    <!-- Floating Circles -->
+
+    <div class="circle" style="width:40px;height:40px;left:10%;animation-duration:8s;"></div>
+
+    <div class="circle" style="width:60px;height:60px;left:30%;animation-duration:12s;"></div>
+
+    <div class="circle" style="width:25px;height:25px;left:50%;animation-duration:9s;"></div>
+
+    <div class="circle" style="width:50px;height:50px;left:70%;animation-duration:15s;"></div>
+
+    <div class="circle" style="width:35px;height:35px;left:90%;animation-duration:11s;"></div>
+
+    <!-- Main Content -->
+
+    <div class="container">
+
+        <h1>Smart Inventory Management System</h1>
+
+        <p>
+            Manage Products, Sales, Inventory & Revenue Efficiently
+        </p>
+
+        <a href="/dashboard/" class="tap-button">
+            Tap To Continue
+        </a>
+
+    </div>
+
+    <!-- Cursor Script -->
+
+    <script>
+
+        const cursor = document.querySelector(".cursor");
+
+        document.addEventListener("mousemove", (e)=>{
+
+            cursor.style.left = e.pageX + "px";
+
+            cursor.style.top = e.pageY + "px";
+
+        });
+
+    </script>
+
+</body>
+
+</html>

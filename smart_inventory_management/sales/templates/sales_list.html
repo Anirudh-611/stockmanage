@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Sales List</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            color:white;
+
+            padding:40px;
+        }
+
+        /* Navbar */
+
+        .navbar{
+
+            width:100%;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding:20px 40px;
+
+            border-radius:15px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:40px;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .navbar h1{
+
+            color:#00bfff;
+
+            font-size:35px;
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            background:#00bfff;
+
+            color:white;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+        /* Page Title */
+
+        h2{
+
+            text-align:center;
+
+            margin-bottom:35px;
+
+            font-size:45px;
+
+            color:#00bfff;
+
+            animation:fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* Top Buttons */
+
+        .top-bar{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:25px;
+        }
+
+        .top-buttons{
+
+            display:flex;
+
+            gap:15px;
+        }
+
+        .btn{
+
+            text-decoration:none;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .add-btn{
+
+            background:#16a34a;
+        }
+
+        .report-btn{
+
+            background:#2563eb;
+        }
+
+        .btn:hover{
+
+            transform:scale(1.05);
+        }
+
+        /* Table */
+
+        .table-container{
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding:25px;
+
+            border-radius:20px;
+
+            animation:slideUp 1.2s ease;
+        }
+
+        @keyframes slideUp{
+
+            from{
+                opacity:0;
+                transform:translateY(30px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+        }
+
+        th{
+
+            background:#00bfff;
+
+            padding:18px;
+
+            font-size:18px;
+        }
+
+        td{
+
+            padding:18px;
+
+            text-align:center;
+
+            border-bottom:1px solid rgba(255,255,255,0.1);
+        }
+
+        tr:hover{
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* Status */
+
+        .paid{
+
+            color:#00ff88;
+
+            font-weight:bold;
+        }
+
+        .pending{
+
+            color:orange;
+
+            font-weight:bold;
+        }
+
+        .cancelled{
+
+            color:red;
+
+            font-weight:bold;
+        }
+
+        /* Action Buttons */
+
+        .action-buttons{
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:10px;
+        }
+
+        .action-btn{
+
+            text-decoration:none;
+
+            padding:8px 14px;
+
+            border-radius:6px;
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .details{
+
+            background:#2563eb;
+        }
+
+        .update{
+
+            background:#16a34a;
+        }
+
+        .delete{
+
+            background:#dc2626;
+        }
+
+        .action-btn:hover{
+
+            transform:scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h1>InventoryPro Sales</h1>
+
+        <a href="/sales/">
+
+            Back Sales Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- Title -->
+
+    <h2>Sales List</h2>
+
+    <!-- Top Buttons -->
+
+    <div class="top-bar">
+
+        <div class="top-buttons">
+
+            <a href="/sales/add/" class="btn add-btn">
+
+                + Add Sale
+
+            </a>
+
+            <a href="/sales/monthly-report/" class="btn report-btn">
+
+                Monthly Report
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Sales Table -->
+
+    <div class="table-container">
+
+        <table>
+
+            <tr>
+
+                <th>Order ID</th>
+
+                <th>Customer</th>
+
+                <th>Product</th>
+
+                <th>Quantity</th>
+
+                <th>Total Amount</th>
+
+                <th>Payment Status</th>
+
+                <th>Date</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+            {% for sale in sales %}
+
+            <tr>
+
+                <td>#{{ sale.id }}</td>
+
+                <td>{{ sale.customer_name }}</td>
+
+                <td>{{ sale.product.name }}</td>
+
+                <td>{{ sale.quantity }}</td>
+
+                <td>₹{{ sale.total_price }}</td>
+
+                <td class="{% if sale.payment_status|lower == 'paid' %}paid{% elif sale.payment_status|lower == 'pending' %}pending{% else %}cancelled{% endif %}">
+
+                    {{ sale.payment_status }}
+
+                </td>
+
+                <td>{{ sale.order_date|date:"d M Y" }}</td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <a href="/sales/details/{{ sale.id }}/" class="action-btn details">
+
+                            Details
+
+                        </a>
+
+                        <a href="/sales/update/{{ sale.id }}/" class="action-btn update">
+
+                            Update
+
+                        </a>
+
+                        <a href="/sales/delete/{{ sale.id }}/" class="action-btn delete">
+
+                            Delete
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="8" style="text-align: center; font-size: 18px; color: #cbd5e1; padding: 20px;">
+
+                    No sales transactions recorded yet.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

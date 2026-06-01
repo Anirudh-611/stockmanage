@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Sales Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            color:white;
+
+            padding:40px;
+        }
+
+        /* Navbar */
+
+        .navbar{
+
+            width:100%;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            padding:20px 40px;
+
+            border-radius:15px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:50px;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .navbar h1{
+
+            color:#00bfff;
+
+            font-size:35px;
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            background:#00bfff;
+
+            color:white;
+
+            padding:12px 22px;
+
+            border-radius:8px;
+
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+        /* Main Title */
+
+        h2{
+
+            text-align:center;
+
+            font-size:48px;
+
+            margin-bottom:45px;
+
+            color:#00bfff;
+
+            animation:fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* Summary Cards */
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+            gap:25px;
+
+            margin-bottom:50px;
+        }
+
+        .card{
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding:30px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            transition:0.4s;
+        }
+
+        .card:hover{
+
+            transform:translateY(-8px);
+
+            box-shadow:0px 0px 20px #00bfff;
+        }
+
+        .card h3{
+
+            margin-bottom:15px;
+
+            font-size:24px;
+
+            color:#00bfff;
+        }
+
+        .card p{
+
+            font-size:34px;
+
+            font-weight:bold;
+        }
+
+        /* Sales Menu */
+
+        .sales-grid{
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+            gap:30px;
+        }
+
+        .sales-card{
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding:35px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            transition:0.4s;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .sales-card:hover{
+
+            transform:translateY(-10px);
+
+            box-shadow:0px 0px 20px #00bfff;
+        }
+
+        .sales-card h3{
+
+            color:#00bfff;
+
+            margin-bottom:18px;
+
+            font-size:28px;
+        }
+
+        .sales-card p{
+
+            color:#d1d5db;
+
+            line-height:1.7;
+
+            margin-bottom:25px;
+        }
+
+        .sales-card a{
+
+            text-decoration:none;
+
+            background:#00bfff;
+
+            color:white;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            display:inline-block;
+
+            transition:0.3s;
+        }
+
+        .sales-card a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h1>InventoryPro Sales</h1>
+
+        <a href="/dashboard/">
+
+            Back Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- Title -->
+
+    <h2>Sales Dashboard</h2>
+
+    <!-- Summary Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Total Sales Revenue</h3>
+
+            <p>₹{{ total_sales_revenue }}</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Total Orders</h3>
+
+            <p>{{ total_orders }}</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Pending Payments</h3>
+
+            <p>{{ pending_payments }}</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Monthly Revenue Growth</h3>
+
+            <p>{% if monthly_growth >= 0 %}+{% endif %}{{ monthly_growth }}%</p>
+
+        </div>
+
+    </div>
+
+    <!-- Sales Features -->
+
+    <div class="sales-grid">
+
+        <div class="sales-card">
+
+            <h3>Sales List</h3>
+
+            <p>
+
+                View and manage all customer sales records.
+
+            </p>
+
+            <a href="/sales/list/">
+
+                Open
+
+            </a>
+
+        </div>
+
+        <div class="sales-card">
+
+            <h3>Add Sale</h3>
+
+            <p>
+
+                Create a new customer order and billing entry.
+
+            </p>
+
+            <a href="/sales/add/">
+
+                Open
+
+            </a>
+
+        </div>
+
+        <div class="sales-card">
+
+            <h3>Monthly Sales Report</h3>
+
+            <p>
+
+                Analyze monthly sales performance and revenue.
+
+            </p>
+
+            <a href="/sales/monthly-report/">
+
+                Open
+
+            </a>
+
+        </div>
+
+        <div class="sales-card">
+
+            <h3>Sale Details</h3>
+
+            <p>
+
+                Select a sale from the list to view complete order information.
+
+            </p>
+
+            <a href="/sales/list/">
+
+                View List
+
+            </a>
+
+        </div>
+
+        <div class="sales-card">
+
+            <h3>Update Sale</h3>
+
+            <p>
+
+                Select a sale from the list to modify information and payment records.
+
+            </p>
+
+            <a href="/sales/list/">
+
+                View List
+
+            </a>
+
+        </div>
+
+        <div class="sales-card">
+
+            <h3>Delete Sale</h3>
+
+            <p>
+
+                Select a sale from the list to cancel or remove entries.
+
+            </p>
+
+            <a href="/sales/list/">
+
+                View List
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

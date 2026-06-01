@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Reports Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            color:white;
+
+            padding:40px;
+        }
+
+        .navbar{
+
+            width:100%;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            padding:20px 40px;
+
+            border-radius:15px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:50px;
+        }
+
+        .navbar h1{
+
+            color:#00bfff;
+
+            font-size:35px;
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            color:white;
+
+            background:#00bfff;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+        h2{
+
+            text-align:center;
+
+            font-size:45px;
+
+            margin-bottom:50px;
+
+            color:#00bfff;
+        }
+
+        .reports-grid{
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+            gap:30px;
+        }
+
+        .report-card{
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            padding:40px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            transition:0.4s;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .report-card:hover{
+
+            transform:translateY(-10px);
+
+            box-shadow:0px 0px 20px #00bfff;
+        }
+
+        .report-card h3{
+
+            font-size:28px;
+
+            margin-bottom:20px;
+
+            color:#00bfff;
+        }
+
+        .report-card p{
+
+            margin-bottom:25px;
+
+            color:#d1d5db;
+
+            line-height:1.6;
+        }
+
+        .report-card a{
+
+            text-decoration:none;
+
+            background:#00bfff;
+
+            color:white;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            display:inline-block;
+
+            transition:0.3s;
+        }
+
+        .report-card a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <h1>InventoryPro Reports</h1>
+
+        <a href="/dashboard/">
+
+            Back Dashboard
+
+        </a>
+
+    </div>
+
+    <h2>Reports Dashboard</h2>
+
+    <div class="reports-grid">
+
+        <div class="report-card">
+
+            <h3>Monthly Report</h3>
+
+            <p>
+                View monthly sales, revenue, and stock performance.
+            </p>
+
+            <a href="/report/monthly/">
+
+                Open Report
+
+            </a>
+
+        </div>
+
+        <div class="report-card">
+
+            <h3>Profit Report</h3>
+
+            <p>
+                Analyze company profit and expense summaries.
+            </p>
+
+            <a href="/report/profit/">
+
+                Open Report
+
+            </a>
+
+        </div>
+
+        <div class="report-card">
+
+            <h3>Revenue Report</h3>
+
+            <p>
+                Track revenue growth and financial analytics.
+            </p>
+
+            <a href="/report/revenue/">
+
+                Open Report
+
+            </a>
+
+        </div>
+
+        <div class="report-card">
+
+            <h3>Stock Report</h3>
+
+            <p>
+                Monitor inventory levels and stock movement.
+            </p>
+
+            <a href="/report/stock/">
+
+                Open Report
+
+            </a>
+
+        </div>
+
+        <div class="report-card">
+
+            <h3>Yearly Report</h3>
+
+            <p>
+                Review yearly business performance and analytics.
+            </p>
+
+            <a href="/report/yearly/">
+
+                Open Report
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,490 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/navbar.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/dashboard.css' %}">
+
+    <style>
+
+        .prediction-box{
+
+            margin-top: 30px;
+
+            background: rgba(255,255,255,0.05);
+
+            padding: 25px;
+
+            border-radius: 15px;
+        }
+
+        .prediction-box h2{
+
+            margin-bottom: 20px;
+
+            color: #00bfff;
+        }
+
+        .prediction-item{
+
+            background: rgba(255,255,255,0.05);
+
+            padding: 15px;
+
+            margin-bottom: 15px;
+
+            border-radius: 10px;
+
+            transition: 0.3s;
+        }
+
+        .prediction-item:hover{
+
+            transform: translateY(-3px);
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        .days-left{
+
+            color: #00bfff;
+
+            font-weight: bold;
+        }
+
+        .out-stock{
+
+            color: red;
+
+            font-weight: bold;
+        }
+
+        .inventory-value{
+
+            color: #22c55e;
+        }
+
+        .locked{
+
+            color: #facc15;
+
+            font-size: 45px;
+        }
+
+        .guest-message{
+
+            color: #cbd5e1;
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- GLOW EFFECT -->
+
+    <div class="glow glow1"></div>
+
+    <div class="glow glow2"></div>
+
+    <!-- NAVBAR -->
+
+    {% include 'navbar.html' %}
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        <!-- DASHBOARD CARDS -->
+
+        <div class="cards">
+
+            <!-- TOTAL PRODUCTS -->
+
+            <div class="card">
+
+                <h2>Total Products</h2>
+
+                <h1>{{ total_products }}</h1>
+
+                <p>All Products</p>
+
+            </div>
+
+            <!-- TOTAL SALES -->
+
+            <div class="card">
+
+                <h2>Total Sales</h2>
+
+                <h1>{{ total_sales }}</h1>
+
+                <p>This Month</p>
+
+            </div>
+
+            {% if user.is_authenticated %}
+
+            <!-- MONTHLY REVENUE -->
+
+            <div class="card">
+
+                <h2>Monthly Revenue</h2>
+
+                <h1>
+
+                    ₹{{ monthly_revenue }}
+
+                </h1>
+
+                <p>This Month</p>
+
+            </div>
+
+            <!-- LOW STOCK -->
+
+            <div class="card">
+
+                <h2>Low Stock Items</h2>
+
+                <h1>
+
+                    {{ low_stock_count }}
+
+                </h1>
+
+                <p>Needs Attention</p>
+
+            </div>
+
+            <!-- OUT OF STOCK -->
+
+            <div class="card">
+
+                <h2>Out Of Stock</h2>
+
+                <h1 class="out-stock">
+
+                    {{ out_stock_count }}
+
+                </h1>
+
+                <p>Unavailable Products</p>
+
+            </div>
+
+            <!-- INVENTORY VALUE -->
+
+            <div class="card">
+
+                <h2>Total Inventory Value</h2>
+
+                <h1 class="inventory-value">
+
+                    ₹{{ total_inventory_value }}
+
+                </h1>
+
+                <p>Total Stock Worth</p>
+
+            </div>
+
+            
+
+            <!-- BEST SELLING PRODUCT -->
+
+        <div class="card">
+
+            <h2>Best Selling Product</h2>
+
+            <h3 class="best-product-name">
+    {{ best_product_name }}
+</h3>
+
+            <p>
+
+                Sold: {{ best_product_sales }} Units
+
+            </p>
+
+        </div>
+        {% else %}
+
+            <!-- LOCKED CARDS -->
+
+            <div class="card">
+
+                <h2>Business Analytics</h2>
+
+                <h1 class="locked">
+
+                    🔒
+
+                </h1>
+
+                <p>Login Required</p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Inventory Value</h2>
+
+                <h1 class="locked">
+
+                    🔒
+
+                </h1>
+
+                <p>Login Required</p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Stock Predictions</h2>
+
+                <h1 class="locked">
+
+                    🔒
+
+                </h1>
+
+                <p>Login Required</p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- CHART SECTION -->
+
+        <div class="chart-section">
+
+            <!-- SALES ANALYTICS -->
+
+            <div class="chart-box">
+
+                <h2>Monthly Sales Analytics</h2>
+
+                <div class="bar-container"
+                     style="justify-content: space-around;
+                            padding-bottom: 20px;">
+
+                    {% for data in chart_data %}
+
+                    <div style="display:flex;
+                                flex-direction:column;
+                                align-items:center;
+                                gap:8px;">
+
+                        <div class="bar"
+                             style="height:{{ data.height }}px;
+                                    width:45px;"
+                             title="₹{{ data.revenue }}">
+
+                        </div>
+
+                        <span style="font-size:14px;
+                                     color:#cbd5e1;">
+
+                            {{ data.month }}
+
+                        </span>
+
+                    </div>
+
+                    {% empty %}
+
+                    <p style="color:#cbd5e1;">
+
+                        No sales history available
+
+                    </p>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- LOW STOCK ALERTS -->
+
+            <div class="chart-box">
+
+                <h2>Low Stock Alerts</h2>
+
+                {% if user.is_authenticated %}
+
+                    {% for item in low_stock_alerts %}
+
+                    <div class="stock-item">
+
+                        <span>
+
+                            {{ item.product.name }}
+
+                        </span>
+
+                        <span class="low">
+
+                            {{ item.stock }} Left
+
+                        </span>
+
+                    </div>
+
+                    {% empty %}
+
+                    <div class="guest-message">
+
+                        No low stock alerts!
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="guest-message">
+
+                        Login to view stock alerts
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- STOCK PREDICTIONS -->
+
+        {% if user.is_authenticated %}
+
+        <div class="prediction-box">
+
+            <h2>
+
+                Smart Stock Predictions
+
+            </h2>
+
+            {% for item in stock_predictions %}
+
+            <div class="prediction-item">
+
+                <p>
+
+                    <b>
+
+                        {{ item.product }}
+
+                    </b>
+
+                </p>
+
+                <p>
+
+                    Current Stock:
+                    {{ item.stock }}
+
+                </p>
+
+                <p>
+
+                    Estimated Days Left:
+
+                    <span class="days-left">
+
+                        {{ item.days_left }}
+
+                    </span>
+
+                </p>
+
+            </div>
+
+            {% empty %}
+
+            <p>
+
+                No prediction data available
+
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- QUICK ACTIONS -->
+
+        {% if user.is_authenticated %}
+
+        <div class="quick-actions">
+
+            <h2>
+
+                Quick Actions
+
+            </h2>
+
+            <div class="action-buttons">
+
+                <a href="/products/add/">
+
+                    + Add Product
+
+                </a>
+
+                <a href="/sales/add/">
+
+                    + Add Sale
+
+                </a>
+
+                <a href="/inventory/add/">
+
+                    + Add Stock
+
+                </a>
+
+                <a href="/report/">
+
+                    + Generate Report
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

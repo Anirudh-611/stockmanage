@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Low Stock Alerts</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            color:white;
+
+            padding:40px;
+        }
+
+        /* Navbar */
+
+        .navbar{
+
+            width:100%;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            padding:20px 40px;
+
+            border-radius:15px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:40px;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .navbar h1{
+
+            color:#00bfff;
+
+            font-size:35px;
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            color:white;
+
+            background:#00bfff;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+        /* Main Container */
+
+        .container{
+
+            width:95%;
+
+            margin:auto;
+        }
+
+        .title{
+
+            text-align:center;
+
+            margin-bottom:35px;
+
+            font-size:42px;
+
+            color:#ff4d4d;
+
+            animation:fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* Alert Box */
+
+        .alert-box{
+
+            width:100%;
+
+            background: rgba(255,77,77,0.15);
+
+            border-left:5px solid red;
+
+            padding:18px;
+
+            border-radius:10px;
+
+            margin-bottom:25px;
+
+            font-size:18px;
+
+            animation:blink 1.5s infinite;
+        }
+
+        @keyframes blink{
+
+            0%{
+                opacity:1;
+            }
+
+            50%{
+                opacity:0.6;
+            }
+
+            100%{
+                opacity:1;
+            }
+        }
+
+        /* Table */
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            border-radius:15px;
+
+            overflow:hidden;
+
+            animation:fadeIn 2s ease;
+        }
+
+        th{
+
+            background:#00bfff;
+
+            padding:18px;
+
+            font-size:18px;
+        }
+
+        td{
+
+            padding:18px;
+
+            text-align:center;
+
+            border-bottom:1px solid rgba(255,255,255,0.1);
+
+            transition:0.3s;
+        }
+
+        tr:hover{
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* Status Colors */
+
+        .low{
+
+            color:orange;
+
+            font-weight:bold;
+        }
+
+        .critical{
+
+            color:red;
+
+            font-weight:bold;
+        }
+
+        .out{
+
+            color:#ff0000;
+
+            font-weight:bold;
+        }
+
+        /* Buttons */
+
+        .action-buttons{
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:12px;
+        }
+
+        .btn{
+
+            padding:10px 16px;
+
+            border-radius:8px;
+
+            text-decoration:none;
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .restock{
+
+            background:#16a34a;
+        }
+
+        .view{
+
+            background:#2563eb;
+        }
+
+        .btn:hover{
+
+            transform:scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h1>InventoryPro</h1>
+
+        <a href="/inventory/">
+
+            Back Inventory
+
+        </a>
+
+    </div>
+
+    <!-- Main Content -->
+
+    <div class="container">
+
+        <h2 class="title">
+
+            Low Stock Alerts
+
+        </h2>
+
+        <!-- Warning Alert -->
+
+        <div class="alert-box">
+
+            Warning: Some products are running low on stock.
+            Restock immediately to avoid sales loss.
+
+        </div>
+
+        <!-- Table -->
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Product</th>
+
+                <th>Remaining Stock</th>
+
+                <th>Status</th>
+
+                <th>Last Updated</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+            {% for inventory in inventories %}
+
+            <tr>
+
+                <td>{{ inventory.id }}</td>
+
+                <td>{{ inventory.product.name }}</td>
+
+                <td>{{ inventory.stock }}</td>
+
+                <td>
+
+                    {% if inventory.stock == 0 %}
+
+                        <span class="out">Out Of Stock</span>
+
+                    {% elif inventory.stock <= 2 %}
+
+                        <span class="critical">Critical</span>
+
+                    {% else %}
+
+                        <span class="low">Low Stock</span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>{{ inventory.last_updated|date:"d M Y H:i" }}</td>
+
+                <td class="action-buttons">
+
+                    <a href="/inventory/update/{{ inventory.id }}/" class="btn restock">
+
+                        Restock
+
+                    </a>
+
+                    <a href="/inventory/details/{{ inventory.id }}/" class="btn view">
+
+                        View
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="6" style="text-align: center; font-size: 18px; color: #cbd5e1; padding: 20px;">
+
+                    All products are well stocked! No low stock alerts.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

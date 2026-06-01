@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Monthly Report</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            color:white;
+
+            padding:40px;
+        }
+
+        /* Navbar */
+
+        .navbar{
+
+            width:100%;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            padding:20px 40px;
+
+            border-radius:15px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:40px;
+
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+        }
+
+        .navbar h1{
+
+            color:#00bfff;
+
+            font-size:35px;
+        }
+
+        .navbar a{
+
+            text-decoration:none;
+
+            color:white;
+
+            background:#00bfff;
+
+            padding:12px 20px;
+
+            border-radius:8px;
+
+            transition:0.3s;
+        }
+
+        .navbar a:hover{
+
+            background:#009acd;
+
+            transform:scale(1.05);
+        }
+
+        /* Main Title */
+
+        h2{
+
+            text-align:center;
+
+            font-size:45px;
+
+            color:#00bfff;
+
+            margin-bottom:40px;
+
+            animation:fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* Summary Cards */
+
+        .cards{
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+            gap:25px;
+
+            margin-bottom:40px;
+        }
+
+        .card{
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            padding:30px;
+
+            border-radius:18px;
+
+            text-align:center;
+
+            transition:0.4s;
+        }
+
+        .card:hover{
+
+            transform:translateY(-8px);
+
+            box-shadow:0px 0px 20px #00bfff;
+        }
+
+        .card h3{
+
+            color:#00bfff;
+
+            margin-bottom:15px;
+
+            font-size:24px;
+        }
+
+        .card p{
+
+            font-size:30px;
+
+            font-weight:bold;
+        }
+
+        /* Table */
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(8px);
+
+            border-radius:15px;
+
+            overflow:hidden;
+        }
+
+        th{
+
+            background:#00bfff;
+
+            padding:18px;
+
+            font-size:18px;
+        }
+
+        td{
+
+            padding:18px;
+
+            text-align:center;
+
+            border-bottom:1px solid rgba(255,255,255,0.1);
+        }
+
+        tr:hover{
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* Status */
+
+        .profit{
+
+            color:#00ff88;
+
+            font-weight:bold;
+        }
+
+        .loss{
+
+            color:red;
+
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h1>InventoryPro Reports</h1>
+
+        <a href="/report/">
+
+            Back Reports
+
+        </a>
+
+    </div>
+
+    <!-- Main Title -->
+
+    <h2>Monthly Report</h2>
+
+    <!-- Summary Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Total Revenue</h3>
+
+            <p>₹{{ total_revenue }}</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Total Orders</h3>
+
+            <p>{{ total_orders }}</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Total Profit</h3>
+
+            <p>₹{{ total_profit }}</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Low Stock Items</h3>
+
+            <p>{{ low_stock_count }}</p>
+
+        </div>
+
+    </div>
+
+    <!-- Monthly Report Table -->
+
+    <table>
+
+        <tr>
+
+            <th>Week</th>
+
+            <th>Orders</th>
+
+            <th>Revenue</th>
+
+            <th>Expenses</th>
+
+            <th>Profit</th>
+
+            <th>Status</th>
+
+        </tr>
+
+        {% for item in weekly_data %}
+
+        <tr>
+
+            <td>{{ item.week }}</td>
+
+            <td>{{ item.orders }}</td>
+
+            <td>₹{{ item.revenue }}</td>
+
+            <td>₹{{ item.expenses }}</td>
+
+            <td class="{% if item.profit >= 0 %}profit{% else %}loss{% endif %}">
+
+                ₹{{ item.profit }}
+
+            </td>
+
+            <td class="{% if item.status == 'Profit' %}profit{% else %}loss{% endif %}">
+
+                {{ item.status }}
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="6" style="text-align: center; font-size: 18px; color: #cbd5e1; padding: 20px;">
+
+                No sales recorded for this month yet.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>

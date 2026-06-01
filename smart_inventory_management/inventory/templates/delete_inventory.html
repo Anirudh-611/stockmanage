@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Delete Inventory</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:Arial, sans-serif;
+
+            min-height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            color:white;
+        }
+
+        .container{
+
+            width:450px;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding:40px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            box-shadow:0px 0px 25px rgba(0,0,0,0.4);
+        }
+
+        h1{
+
+            color:#ff4d4d;
+
+            margin-bottom:20px;
+
+            font-size:38px;
+        }
+
+        p{
+
+            font-size:18px;
+
+            margin-bottom:30px;
+
+            line-height:1.6;
+        }
+
+        .product-name{
+
+            color:#00bfff;
+
+            font-weight:bold;
+        }
+
+        .buttons{
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:15px;
+        }
+
+        .btn{
+
+            padding:12px 22px;
+
+            border:none;
+
+            border-radius:8px;
+
+            text-decoration:none;
+
+            color:white;
+
+            font-size:16px;
+
+            transition:0.3s;
+        }
+
+        .delete{
+
+            background:#dc2626;
+        }
+
+        .cancel{
+
+            background:#2563eb;
+        }
+
+        .btn:hover{
+
+            transform:scale(1.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Delete Inventory</h1>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <p>
+
+                Are you sure you want to delete
+
+                <span class="product-name">{{ inventory.product.name }}</span>
+
+                from inventory?
+
+            </p>
+
+            <div class="buttons">
+
+                <a href="/inventory/" class="btn cancel">
+
+                    Cancel
+
+                </a>
+
+                <button type="submit" class="btn delete">
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

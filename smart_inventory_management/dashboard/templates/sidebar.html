@@ -1,0 +1,223 @@
+<!-- Navbar -->
+
+<div class="navbar">
+
+    <!-- Logo -->
+
+    <h1 class="logo">
+
+        InventoryPro
+
+    </h1>
+
+    <!-- Navigation Links -->
+
+    <div class="nav-links">
+
+        <a href="/dashboard/">
+
+            Dashboard
+
+        </a>
+
+        <a href="/products/">
+
+            Products
+
+        </a>
+
+        <a href="/sales/">
+
+            Sales
+
+        </a>
+
+        <a href="/inventory/">
+
+            Inventory
+
+        </a>
+
+        <a href="/report/">
+
+            Reports
+
+        </a>
+
+        <a href="/inventory/stock-history/">
+
+            Stock History
+
+        </a>
+
+        <a href="#">
+
+            Notifications
+
+        </a>
+
+    </div>
+
+    <!-- Auth Buttons -->
+
+    <div class="auth-buttons">
+
+        <a href="/login/" class="login-btn">
+
+            Login
+
+        </a>
+
+        <a href="/signup/" class="signup-btn">
+
+            Signup
+
+        </a>
+
+        <a href="/" class="logout-btn">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+<style>
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    /* Navbar */
+
+    .navbar{
+
+        width:100%;
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        padding:20px 40px;
+
+        background:#1e293b;
+
+        position:fixed;
+
+        top:0;
+
+        left:0;
+
+        z-index:1000;
+
+        box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+
+        animation:slideDown 1s ease;
+    }
+
+    @keyframes slideDown{
+
+        from{
+            transform:translateY(-100%);
+        }
+
+        to{
+            transform:translateY(0);
+        }
+    }
+
+    /* Logo */
+
+    .logo{
+
+        color:#00bfff;
+
+        font-size:34px;
+    }
+
+    /* Nav Links */
+
+    .nav-links{
+
+        display:flex;
+
+        gap:25px;
+    }
+
+    .nav-links a{
+
+        text-decoration:none;
+
+        color:white;
+
+        font-size:18px;
+
+        transition:0.3s;
+
+        padding:10px 15px;
+
+        border-radius:8px;
+    }
+
+    .nav-links a:hover{
+
+        background:#00bfff;
+
+        transform:translateY(-3px);
+
+        box-shadow:0px 0px 12px rgba(0,191,255,0.5);
+    }
+
+    /* Auth Buttons */
+
+    .auth-buttons{
+
+        display:flex;
+
+        gap:15px;
+    }
+
+    .auth-buttons a{
+
+        text-decoration:none;
+
+        color:white;
+
+        padding:10px 18px;
+
+        border-radius:8px;
+
+        font-weight:bold;
+
+        transition:0.3s;
+    }
+
+    .login-btn{
+
+        background:#2563eb;
+    }
+
+    .signup-btn{
+
+        background:#16a34a;
+    }
+
+    .logout-btn{
+
+        background:#dc2626;
+    }
+
+    .auth-buttons a:hover{
+
+        transform:scale(1.05);
+
+        opacity:0.9;
+    }
+
+</style>

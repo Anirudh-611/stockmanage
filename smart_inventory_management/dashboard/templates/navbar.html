@@ -1,0 +1,205 @@
+<div class="navbar">
+
+    <!-- LEFT SIDE -->
+
+    <div class="navbar-left">
+
+        <h1>InventoryPro</h1>
+
+        <div class="nav-links">
+
+            <!-- Dashboard -->
+
+            <a href="/dashboard/">
+
+                Dashboard
+
+            </a>
+
+            <!-- Products -->
+
+            <a href="/products/">
+
+                Products
+
+            </a>
+
+            <!-- Sales -->
+
+            {% if user.is_authenticated %}
+
+                <a href="/sales/">
+
+                    Sales
+
+                </a>
+
+            {% else %}
+
+                <a href="/login/">
+
+                    Sales
+
+                </a>
+
+            {% endif %}
+
+            <!-- Inventory -->
+
+            {% if user.is_authenticated %}
+
+                <a href="/inventory/">
+
+                    Inventory
+
+                </a>
+
+            {% else %}
+
+                <a href="/login/">
+
+                    Inventory
+
+                </a>
+
+            {% endif %}
+
+            <!-- Reports -->
+
+            {% if user.is_authenticated %}
+
+                <a href="/report/">
+
+                    Reports
+
+                </a>
+
+            {% else %}
+
+                <a href="/login/">
+
+                    Reports
+
+                </a>
+
+            {% endif %}
+
+            <!-- Stock History -->
+
+            {% if user.is_authenticated %}
+
+                <a href="/inventory/stock-history/">
+
+                    Stock History
+
+                </a>
+
+            {% else %}
+
+                <a href="/login/">
+
+                    Stock History
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="navbar-right">
+
+        {% if user.is_authenticated %}
+
+            <!-- NOTIFICATION -->
+
+            <div class="notification">
+
+                🔔
+
+                <span class="badge">
+
+                    3
+
+                </span>
+
+            </div>
+
+            <!-- PROFILE -->
+
+            <div class="profile-box">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                     alt="Profile">
+
+                <span>
+
+                    {{ user.username }}
+
+                </span>
+
+            </div>
+
+            <!-- LOGOUT -->
+
+            <a href="/logout/" class="logout-btn">
+
+                Logout
+
+            </a>
+
+        {% else %}
+
+            <!-- LOGIN -->
+
+            <a href="/login/" class="login-btn">
+
+                Login
+
+            </a>
+
+            <!-- SIGNUP -->
+
+            <a href="/signup/" class="signup-btn">
+
+                Signup
+
+            </a>
+
+            <!-- NOTIFICATION -->
+
+            <div class="notification">
+
+                🔔
+
+                <span class="badge">
+
+                    3
+
+                </span>
+
+            </div>
+
+            <!-- GUEST PROFILE -->
+
+            <div class="profile-box">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                     alt="Profile">
+
+                <span>
+
+                    Guest
+
+                </span>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>

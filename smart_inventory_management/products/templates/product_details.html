@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+
+            font-family: Arial, sans-serif;
+
+            overflow: hidden;
+
+            position: relative;
+
+            color: white;
+        }
+
+        /* Floating Circles Animation */
+
+        .circle{
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            animation: float 12s linear infinite;
+        }
+
+        @keyframes float{
+
+            from{
+                transform: translateY(100vh);
+            }
+
+            to{
+                transform: translateY(-120vh);
+            }
+        }
+
+        /* Product Card */
+
+        .container{
+
+            width: 420px;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow: 0px 0px 25px rgba(0,0,0,0.4);
+
+            animation: fadeIn 1.5s ease;
+
+            z-index: 2;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to{
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h2{
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+            font-size: 38px;
+
+            color: #00bfff;
+        }
+
+        p{
+
+            font-size: 18px;
+
+            margin-bottom: 18px;
+
+            transition: 0.3s;
+        }
+
+        p:hover{
+
+            transform: translateX(8px);
+
+            color: #00bfff;
+        }
+
+        b{
+            color: cyan;
+        }
+
+        .btn{
+
+            display: block;
+
+            text-align: center;
+
+            background: #00bfff;
+
+            color: white;
+
+            padding: 12px;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            margin-top: 25px;
+
+            font-size: 18px;
+
+            transition: 0.4s;
+        }
+
+        .btn:hover{
+
+            background: #009acd;
+
+            transform: scale(1.05);
+
+            box-shadow: 0px 0px 20px #00bfff;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Floating Background -->
+
+    <div class="circle" style="width:40px;height:40px;left:10%;animation-duration:8s;"></div>
+
+    <div class="circle" style="width:60px;height:60px;left:30%;animation-duration:12s;"></div>
+
+    <div class="circle" style="width:25px;height:25px;left:50%;animation-duration:9s;"></div>
+
+    <div class="circle" style="width:50px;height:50px;left:70%;animation-duration:15s;"></div>
+
+    <div class="circle" style="width:35px;height:35px;left:90%;animation-duration:11s;"></div>
+
+    <!-- Product Details -->
+
+    <div class="container">
+
+        <h2>Product Details</h2>
+
+        <p>
+            <b>Product Name:</b> Laptop
+        </p>
+
+        <p>
+            <b>Category:</b> Electronics
+        </p>
+
+        <p>
+            <b>Price:</b> ₹50,000
+        </p>
+
+        <p>
+            <b>Stock:</b> 10
+        </p>
+
+        <p>
+            <b>Description:</b> High performance laptop
+        </p>
+
+        <a href="/products/" class="btn">
+            Back to Products
+        </a>
+
+    </div>
+
+</body>
+
+</html>
