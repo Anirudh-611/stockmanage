@@ -8,6 +8,8 @@ import os
 
 from pathlib import Path
 
+from django import db
+
 
 # BASE DIRECTORY
 
@@ -126,17 +128,11 @@ DATABASES = {
 
     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
 
-        'NAME': 'smart_inventory_management',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
-        'USER':'postgres',
-
-        'PASSWORD':'Pavankumar',
-
-        'HOST': 'localhost',
-
-        'PORT':'5432',
+        
 
     }
 
