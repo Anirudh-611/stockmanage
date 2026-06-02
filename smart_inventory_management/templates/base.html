@@ -10,6 +10,11 @@
 
     <title>InventoryPro</title>
 
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'css/theme.css' %}">
+
     <style>
 
         *{
@@ -253,6 +258,8 @@
         {% endblock %}
 
     </div>
+
+    {% include 'popups.html' %}
 
 </body>
 

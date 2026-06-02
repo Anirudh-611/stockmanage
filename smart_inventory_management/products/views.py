@@ -7,6 +7,7 @@ from django.shortcuts import (
 )
 
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from django.db.models import Q
 
@@ -124,14 +125,17 @@ def add_product(request):
         if not name:
 
             error = "Product name required"
+            messages.error(request, error)
 
         elif quantity < 0:
 
             error = "Quantity cannot be negative"
+            messages.error(request, error)
 
         elif price <= 0:
 
             error = "Price must be greater than 0"
+            messages.error(request, error)
 
         else:
 
@@ -162,6 +166,8 @@ def add_product(request):
                 stock=quantity
 
             )
+
+            messages.success(request, f"{product.name} added successfully.")
 
             return redirect('/products/')
 
@@ -231,14 +237,17 @@ def update_product(request, id):
         if not name:
 
             error = "Product name required"
+            messages.error(request, error)
 
         elif quantity < 0:
 
             error = "Quantity cannot be negative"
+            messages.error(request, error)
 
         elif price <= 0:
 
             error = "Price must be greater than 0"
+            messages.error(request, error)
 
         else:
 
@@ -265,6 +274,8 @@ def update_product(request, id):
                 inventory.stock = quantity
 
                 inventory.save()
+
+            messages.success(request, f"{product.name} updated successfully.")
 
             return redirect('/products/')
 
@@ -303,7 +314,11 @@ def delete_product(request, id):
 
     if request.method == 'POST':
 
+        product_name = product.name
+
         product.delete()
+
+        messages.success(request, f"{product_name} deleted successfully.")
 
         return redirect('/products/')
 

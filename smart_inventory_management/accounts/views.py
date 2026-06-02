@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from .models import LoginHistory
 
@@ -52,6 +53,8 @@ def login_view(request):
 
             )
 
+            messages.success(request, f"Welcome back, {user.username}!")
+
             # Admin User
 
             if user.is_superuser:
@@ -65,6 +68,8 @@ def login_view(request):
         # Invalid User
 
         else:
+
+            messages.error(request, "Invalid username or password")
 
             return render(
 
@@ -103,6 +108,8 @@ def signup_view(request):
 
         if password != confirm_password:
 
+            messages.error(request, "Passwords do not match")
+
             return render(
 
                 request,
@@ -124,6 +131,8 @@ def signup_view(request):
             username=username
 
         ).exists():
+
+            messages.error(request, "Username already exists")
 
             return render(
 
@@ -151,6 +160,8 @@ def signup_view(request):
 
         )
 
+        messages.success(request, "Account created successfully. Please log in.")
+
         return redirect('/login/')
 
     return render(request, 'signup.html')
@@ -163,5 +174,7 @@ def signup_view(request):
 def logout_view(request):
 
     logout(request)
+
+    messages.success(request, "You have been logged out.")
 
     return redirect('/dashboard/')

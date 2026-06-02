@@ -10,6 +10,11 @@
 
     <title>Login Page</title>
 
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'css/theme.css' %}">
+
     <style>
 
         *{
@@ -331,6 +336,8 @@
         </form>
 
     </div>
+
+    {% include 'popups.html' %}
 
     <!-- Cursor Script -->
 

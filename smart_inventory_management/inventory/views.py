@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 
 from django.db.models import F
 
@@ -191,6 +192,8 @@ def add_inventory(request):
 
         )
 
+        messages.success(request, f"{product.name} stock saved successfully.")
+
 
         return redirect('/inventory/')
 
@@ -274,6 +277,8 @@ def update_inventory(request, id):
 
         )
 
+        messages.success(request, f"{product.name} inventory updated successfully.")
+
 
         return redirect('/inventory/')
 
@@ -308,6 +313,8 @@ def delete_inventory(request, id):
 
     if request.method == 'POST':
 
+        product_name = inventory.product.name
+
         StockHistory.objects.create(
 
             product=inventory.product,
@@ -324,6 +331,8 @@ def delete_inventory(request, id):
         # DELETE PRODUCT ALSO
 
         inventory.product.delete()
+
+        messages.success(request, f"{product_name} inventory deleted successfully.")
 
 
         return redirect('/inventory/')

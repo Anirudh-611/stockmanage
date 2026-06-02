@@ -10,6 +10,11 @@
 
     <title>Signup Page</title>
 
+    {% load static %}
+
+    <link rel="stylesheet"
+          href="{% static 'css/theme.css' %}">
+
     <style>
 
         *{
@@ -303,6 +308,8 @@
         </form>
 
     </section>
+
+    {% include 'popups.html' %}
 
 </body>
 

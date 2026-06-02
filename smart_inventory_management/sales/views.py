@@ -5,6 +5,7 @@ from django.shortcuts import (
     redirect,
     get_object_or_404
 )
+from django.contrib import messages
 
 from django.db.models import Sum
 
@@ -207,12 +208,14 @@ def add_sale(request):
             error = (
                 "Quantity must be greater than 0"
             )
+            messages.error(request, error)
 
         elif not product_id:
 
             error = (
                 "Please select a product"
             )
+            messages.error(request, error)
 
         else:
 
@@ -235,6 +238,7 @@ def add_sale(request):
                     f"{product.name} is Out Of Stock"
 
                 )
+                messages.error(request, error)
 
             # INSUFFICIENT STOCK
 
@@ -246,6 +250,7 @@ def add_sale(request):
                     f"available for {product.name}"
 
                 )
+                messages.error(request, error)
 
             else:
 
@@ -321,6 +326,8 @@ def add_sale(request):
 
                 )
 
+                messages.success(request, "Sale added successfully.")
+
                 return redirect('/sales/list/')
 
     return render(
@@ -395,6 +402,7 @@ def update_sale(request, id):
             error = (
                 "Quantity must be greater than 0"
             )
+            messages.error(request, error)
 
         elif qty_diff > inventory.stock:
 
@@ -404,6 +412,7 @@ def update_sale(request, id):
                 f"units available"
 
             )
+            messages.error(request, error)
 
         else:
 
@@ -470,6 +479,8 @@ def update_sale(request, id):
                 status=status
 
             )
+
+            messages.success(request, "Sale updated successfully.")
 
             return redirect('/sales/list/')
 
@@ -541,6 +552,8 @@ def delete_sale(request, id):
         )
 
         sale.delete()
+
+        messages.success(request, "Sale deleted and stock restored.")
 
         return redirect('/sales/list/')
 
